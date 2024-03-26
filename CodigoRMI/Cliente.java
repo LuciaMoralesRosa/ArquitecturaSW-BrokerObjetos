@@ -4,7 +4,7 @@ import java.rmi.Naming;
  * Autores: Lizer Bernad Ferrando, 779035
  *          Lucia Morales Rosa, 816906
  * 
- * Fichero: Cliente.java cambio
+ * Fichero: Cliente.j
  * Comentarios: Es el fichero correspondiente al cliente.
  *              Pertenece a la implementacion del cliente
  ******************************************************************************/
