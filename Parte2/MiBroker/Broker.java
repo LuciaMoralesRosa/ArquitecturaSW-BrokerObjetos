@@ -6,7 +6,7 @@ import java.util.Vector;
 public interface Broker extends Remote {
 
     // Metodos de la interface
-    void mostrarListaServicios() throws RemoteException;
+    //void mostrarListaServicios() throws RemoteException;
 
     Object ejecutar_servicio_sinc(String nom_servicio, Vector parametros_servicio) throws RemoteException;
 

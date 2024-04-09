@@ -8,12 +8,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Vector;
 
-import javafx.util.Pair;
-
 public class BrokerImpl extends UnicastRemoteObject implements Broker {
 
     // Atributos
-    ArrayList<Pair<String, String>> servidores; //nombre, host
+    ArrayList<Servidor> servidores; //nombre, host
     ArrayList<Servicio> servicios;
 
     protected BrokerImpl() throws RemoteException {
@@ -21,11 +19,13 @@ public class BrokerImpl extends UnicastRemoteObject implements Broker {
         //TODO Auto-generated constructor stub
     }
 
+    /*
     public void mostrarListaServicios() {
         for(Servicio s : servicios){
             System.out.println(s.obtenerCabecera());
         }
     }
+    */
 
     @Override
     public Object ejecutar_servicio_sinc(String nombreServicio, Vector parametrosServicio) {
@@ -36,9 +36,9 @@ public class BrokerImpl extends UnicastRemoteObject implements Broker {
             if (s.getNombreServicio().equals(nombreServicio)) {
                 nombreServidor = s.getNombreServidor();
                 servicio = s;
-                for (Pair p : servidores) {
-                    if (p.getKey().equals(nombreServidor)) {
-                        hostServidor = (String) p.getValue();
+                for (Servidor p : servidores) {
+                    if (p.getNombreServidor().equals(nombreServidor)) {
+                        hostServidor = (String) p.getHostServidor();
                     }
                     break;
                 }
@@ -68,7 +68,7 @@ public class BrokerImpl extends UnicastRemoteObject implements Broker {
     
     @Override
     public void registrar_servidor(String nombreServidor, String host) {
-        Pair servidor = new Pair<>(nombreServidor, host);
+        Servidor servidor = new Servidor(nombreServidor, host);
         servidores.add(servidor);
     }
 

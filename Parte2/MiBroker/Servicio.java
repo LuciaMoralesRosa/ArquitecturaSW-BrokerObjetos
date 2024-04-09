@@ -14,6 +14,7 @@ public class Servicio {
         this.tipoRetorno = tipoRetorno;
     }
 
+    /*
     public String obtenerCabecera() {
         String cabecera = tipoRetorno + " " + nombreServicio + "(";
         int i;
@@ -21,9 +22,10 @@ public class Servicio {
             cabecera = cabecera + listaParametros.elementAt(i) + ", ";
         }
         cabecera = cabecera + listaParametros.elementAt(i + 1) + ")";
-
+        
         return cabecera;
     }
+    */
 
     // Getter y Setter para nombreServidor
     public String getNombreServidor() {
