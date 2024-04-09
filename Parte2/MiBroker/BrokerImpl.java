@@ -28,12 +28,14 @@ public class BrokerImpl extends UnicastRemoteObject implements Broker {
     }
 
     @Override
-    public void ejecutar_servicio_sinc(String nombreServicio, Vector parametrosServicio) {
+    public Object ejecutar_servicio_sinc(String nombreServicio, Vector parametrosServicio) {
         String hostServidor = null;
         String nombreServidor = null;
+        Servicio servicio = null;
         for (Servicio s : servicios) {
             if (s.getNombreServicio().equals(nombreServicio)) {
                 nombreServidor = s.getNombreServidor();
+                servicio = s;
                 for (Pair p : servidores) {
                     if (p.getKey().equals(nombreServidor)) {
                         hostServidor = (String) p.getValue();
@@ -55,11 +57,7 @@ public class BrokerImpl extends UnicastRemoteObject implements Broker {
 
                 // Invocar el método remoto en el servidor seleccionado
                 Object resultado = metodoRemoto.invoke(servidor, parametrosServicio);
-
-                
-
-                // Procesar el resultado, si es necesario
-                System.out.println("Resultado del servicio: " + resultado);
+                return resultado;
 
             } catch (Exception ex) {
                 System.out.println("Error al ejecutar el servicio: " + ex.getMessage());

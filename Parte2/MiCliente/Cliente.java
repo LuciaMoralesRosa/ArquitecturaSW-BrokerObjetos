@@ -42,15 +42,17 @@ public class Cliente {
             // Paso 2 - Invocar remotamente los metodos del objeto servidor:
             broker.mostrarListaServicios();
             
-            int numeroDeAlumnos;
-            broker.ejecutar_servicio_sinc("obtenerNumeroAlumnos", parametros, numeroDeAlumnos);
+            int numeroDeAlumnos = (int) broker.ejecutar_servicio_sinc("obtenerNumeroAlumnos", parametros);
             
-            int[] notasAlumnos = broker.obtenerNotasAlumnos();
+            int[] notasAlumnos = (int[]) broker.ejecutar_servicio_sinc("obtenerNotasAlumnos", parametros);
 
             System.out.println("Hay " + numeroDeAlumnos + " con las siguientes notas: " + notasAlumnos);
 
             broker.mostrarListaServicios();
-            int notaMedia = broker.calcularMediaAritmetica(notasAlumnos, numeroDeAlumnos);
+
+            parametros.add(notasAlumnos);
+            parametros.add(numeroDeAlumnos);
+            int notaMedia = (int) broker.ejecutar_servicio_sinc("mediaAritmetica", parametros);
 
             System.out.println("La nota media de los alumnos es: " + notaMedia + "/10");
 
@@ -67,9 +69,13 @@ public class Cliente {
                 broker.mostrarListaServicios();
                 
                 System.out.println("Introduzca el nuevo numero de alumnos: ");
-                int nuevoNumeroAlumnos = scanner.nextLine();
-                broker.establecerNumeroAlumnos(nuevoNumeroAlumnos);
-                System.out.println("El numero de alumnos es: " + broker.obtenerNumeroAlumnos());
+                respuesta = scanner.nextLine();
+                int nuevoNumeroAlumnos = Integer.parseInt(respuesta);
+                parametros.clear();
+                parametros.add(nuevoNumeroAlumnos);
+                broker.ejecutar_servicio_sinc("establecerNumeroAlumnos", parametros);
+                parametros.clear();
+                System.out.println("El numero de alumnos es: " + broker.ejecutar_servicio_sinc("obtenerNumeroAlumnos", parametros));
             }
 
                 

@@ -8,7 +8,7 @@ public interface Broker extends Remote {
     // Metodos de la interface
     void mostrarListaServicios() throws RemoteException;
 
-    void ejecutar_servicio_sinc(String nom_servicio, Vector parametros_servicio, Object returnServicio) throws RemoteException;
+    Object ejecutar_servicio_sinc(String nom_servicio, Vector parametros_servicio) throws RemoteException;
 
     void registrar_servidor(String nombre_servidor, String host_remoto_IP_puerto) throws RemoteException;
 
