@@ -53,7 +53,7 @@ public class BrokerImpl extends UnicastRemoteObject implements Broker {
                 Remote servidor = (Remote) servidorClase.getDeclaredConstructor().newInstance();
                 
                 // Obtener el metodo remoto mediante reflection
-                Method metodoRemoto = servidorClase.getMethod(nombreServidor, Vector.class);
+                Method metodoRemoto = servidorClase.getMethod(nombreServicio, Vector.class);
 
                 // Invocar el método remoto en el servidor seleccionado
                 Object resultado = metodoRemoto.invoke(servidor, parametrosServicio);
@@ -63,6 +63,7 @@ public class BrokerImpl extends UnicastRemoteObject implements Broker {
                 System.out.println("Error al ejecutar el servicio: " + ex.getMessage());
             }
         }
+        return null;
     }
     
     @Override
