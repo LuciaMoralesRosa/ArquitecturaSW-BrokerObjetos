@@ -1,0 +1,11 @@
+GIT:
+$ git fetch origin
+$ git pull origin main
+
+Para compilar el cliente:
+$ javac -Xlint:unchecked Cliente.java
+$ java Cliente
+
+Para compilar el broker
+$ javac -Xlint:unchecked Broker.java
+$ javac -Xlint:unchecked BrokerImpl.java

@@ -1,4 +1,5 @@
 package MiBroker;
+
 import java.lang.reflect.Method;
 import java.rmi.Naming;
 import java.rmi.Remote;
@@ -7,6 +8,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Vector;
+
 
 public class BrokerImpl extends UnicastRemoteObject implements Broker {
 
@@ -87,7 +89,7 @@ public class BrokerImpl extends UnicastRemoteObject implements Broker {
                 break;
             }
         }
-        if (index != -1) {   // Si el servicio existe lo borramos 
+        if (index != -1) { // Si el servicio existe lo borramos 
             servicios.remove(index);
         }
     }
@@ -98,20 +100,19 @@ public class BrokerImpl extends UnicastRemoteObject implements Broker {
         // El segundo argumento es la ruta al java.policy
         System.setProperty("java.security.policy", "./java.policy");
 
-        
         System.out.println("Introduzca la IP del cliente: ");
         String hostnameCliente = scanner.nextLine();
 
         // Crear administrador de seguridad
         System.setSecurityManager(new SecurityManager());
 
-        try{
+        try {
             BrokerImpl objeto = new BrokerImpl();
             Naming.rebind("//" + hostnameCliente + "/MiBroker", objeto);
 
         } catch (Exception ex) {
             System.out.println(ex);
         }
-        
+
     }
 }

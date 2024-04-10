@@ -1,4 +1,5 @@
 package MiBroker;
+
 public class Servidor {
     private String nombreServidor;
     private String hostServidor;
