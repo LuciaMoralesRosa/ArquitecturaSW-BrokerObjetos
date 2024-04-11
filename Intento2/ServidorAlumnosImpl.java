@@ -12,19 +12,22 @@ public class ServidorAlumnosImpl extends UnicastRemoteObject implements Servidor
     private int numeroAlumnos;
     private int notasAlumnos[];
     private Random random = new Random();
-
-    protected ServidorAlumnosImpl() throws RemoteException {
-        super();
-        numeroAlumnos = random.nextInt(50);
-        generadorNotasAleatorias();
-    }
-
+    
     // Metodos privados
     private void generadorNotasAleatorias() {
         for (int i = 0; i < numeroAlumnos; i++) {
             notasAlumnos[i] = random.nextInt(11);
         }
     }
+
+    protected ServidorAlumnosImpl() throws RemoteException {
+        super();
+        numeroAlumnos = random.nextInt(5) + 1;
+        notasAlumnos = new int[numeroAlumnos];
+        generadorNotasAleatorias();
+    }
+
+    
 
     // Metodos ofrecidos
     @Override
@@ -35,6 +38,7 @@ public class ServidorAlumnosImpl extends UnicastRemoteObject implements Servidor
     @Override
     public void establecerNumeroDeAlumnos(int numero) throws RemoteException {
         numeroAlumnos = numero;
+        notasAlumnos = new int[numeroAlumnos];
         generadorNotasAleatorias();
     }
 
@@ -47,24 +51,34 @@ public class ServidorAlumnosImpl extends UnicastRemoteObject implements Servidor
         Scanner scanner = new Scanner(System.in);
         String respuesta = null;
         String nombreServidor = "ServidorAlumnosImpl";
-        Vector parametros = null;
+        Vector<Object> parametros = new Vector<Object>();
 
         // Fijar el directorio donde se encuentra el java.policy
         // El segundo argumento es la ruta al java.policy
         System.setProperty("java.security.policy", "./java.policy");
-        String hostnameBroker = "155.210.154";
-        System.out.println("Introduzca la IP del broker: ");
-        hostnameBroker = hostnameBroker + scanner.nextLine();
-
+        
         // Crear administrador de seguridad
         System.setSecurityManager(new SecurityManager());
 
         try {
-            String host = InetAddress.getLocalHost().toString();
-            BrokerServ broker = (BrokerServ) Naming.lookup("//" + hostnameBroker + "/MiBroker");
-            boolean primerRegistro = true;
-            while (true) {
+            String host = "155.210.154.";
+            System.out.println("Introduzca el final de su ip 155.210.154.XXX:XXXXX: ");
+            host = host + scanner.nextLine();
 
+            String hostBroker = "155.210.154.";
+            System.out.println("Introduzca el final de la IP del broker 155.210.154.XXX:XXXXX: ");
+            hostBroker = hostBroker + scanner.nextLine();
+
+            ServidorAlumnosImpl obj = new ServidorAlumnosImpl();
+            System.out.println("Despues de crear el objeto ");
+
+            Naming.rebind("//" + host + "/MiServidorAlumnos", obj);
+            System.out.println("Tras rebind ");
+
+            BrokerServ broker = (BrokerServ) Naming.lookup("//" + hostBroker + "/MiBroker");
+            System.out.println("tras broker ");
+
+            while (true) {
                 System.out.println("Escriba el numero de la instruccion que desea realizar: \n" +
                         "1. Registrarme en el broker\n" +
                         "2. Dar de alta un servicio\n" +
@@ -72,13 +86,8 @@ public class ServidorAlumnosImpl extends UnicastRemoteObject implements Servidor
                 respuesta = scanner.nextLine();
                 switch (respuesta) {
                     case "1":
-                        if (primerRegistro) {
-                            primerRegistro = false;
-
-                            broker.registrarServidor(nombreServidor, host);
-                        } else {
-                            System.out.println("Ya estas registrado en el broker");
-                        }
+                        broker.registrarServidor("//" + host + "/MiServidorAlumnos", host);
+                        System.out.println("El servidor se ha registrado correctamente\n");
                         break;
                     case "2":
                         System.out.println("Escriba el numero de la instruccion que desea dar de alta: \n" +
@@ -91,25 +100,28 @@ public class ServidorAlumnosImpl extends UnicastRemoteObject implements Servidor
                             case "1":
                                 parametros.clear();
                                 broker.altaServicio(nombreServidor, "obtenerNumeroDeAlumnos", parametros, "int");
+                                System.out.println("Se ha dado de alta el servicio\n");
                                 break;
                             case "2":
                                 parametros.clear();
                                 parametros.add(int.class);
                                 broker.altaServicio(nombreServidor, "establecerNumeroDeAlumnos", parametros, null);
+                                System.out.println("Se ha dado de alta el servicio\n");
                                 break;
 
                             case "3":
                                 parametros.clear();
                                 broker.altaServicio(nombreServidor, "obtenerNotas", parametros, "int[]");
+                                System.out.println("Se ha dado de alta el servicio\n");
                                 break;
                             default:
-                            System.out.println("El servicio especificado no existe.");
+                                System.out.println("El servicio especificado no existe.");
                                 break;
                         }
                         break;
 
                     case "3":
-                        System.out.println("Escriba el numero de la instruccion que desea dar de baja: \n" +
+                        System.out.println("Escriba el numero del servicio que desea dar de baja: \n" +
                                 "1. obtenerNumeroDeAlumnos\n" +
                                 "2. establecerNumeroDeAlumnos\n" +
                                 "3. obtenerNotas");
@@ -118,12 +130,15 @@ public class ServidorAlumnosImpl extends UnicastRemoteObject implements Servidor
                         switch (respuesta) {
                             case "1":
                                 broker.bajaServicio(nombreServidor, "obtenerNumeroDeAlumnos");
+                                System.out.println("Se ha dado de baja el servicio\n");
                                 break;
                             case "2":
                                 broker.bajaServicio(nombreServidor, "establecerNumeroDeAlumnos");
+                                System.out.println("Se ha dado de baja el servicio\n");
                                 break;
                             case "3":
                                 broker.bajaServicio(nombreServidor, "obtenerNotas");
+                                System.out.println("Se ha dado de baja el servicio\n");
                                 break;
                             default:
                                 System.out.println("El servicio especificado no existe.");

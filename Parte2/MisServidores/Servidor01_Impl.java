@@ -63,10 +63,12 @@ public class Servidor01_Impl extends UnicastRemoteObject implements Servidor01 {
         // Crear administrador de seguridad
         System.setSecurityManager(new SecurityManager());
 
-        try{
+        try {
+
             Servidor01_Impl objeto = new Servidor01_Impl();
             Naming.rebind("//" + hostnameBroker + "/MiBroker", objeto);
 
+            BrokerServ broker 
         } catch (Exception ex) {
             System.out.println(ex);
         }
