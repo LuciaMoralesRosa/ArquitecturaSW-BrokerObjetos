@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.Vector;
 
 /*******************************************************************************
@@ -11,7 +12,7 @@ import java.util.Vector;
 /**
  * Clase que representa un servicio.
  */
-public class Servicio {
+public class Servicio implements Serializable {
 
     // Atributos
     private String nombreServidor;

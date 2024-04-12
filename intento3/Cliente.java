@@ -1,10 +1,10 @@
 import java.rmi.Naming;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Vector;
 
-public class Client {
+public class Cliente {
 
     private static void mostrarServicios(List<Servicio> listaServicios) {
         System.out.println("0) Terminar ejecución");
@@ -15,21 +15,25 @@ public class Client {
         }
     }
 
-    private static Object ejecutarServicio(Servicio servicio, BrokerCli broker) {
+    private static Object ejecutarServicio(Servicio servicio, BrokerCli broker) throws RemoteException {
         // Argumentos del servicio
         List<Object> argumentos = new ArrayList<>();
-        Vector<Object> parametros = servicio.obtenerListaParametros();
+        Vector<Object> parametros = new Vector<Object>();
+        parametros = servicio.obtenerListaParametros();
+        System.out.println("Depurando: antes del if ");
 
-        if (!parametros.isEmpty()) {
+        if (parametros != null) {
             // Pedir parametros al usuario
             System.out.println("El servicio necesita los siguientes parametros: ");
             System.out.println(parametros);
             System.out.println("Escriba un parametro en cada línea:");
-            for (int i = 0; i <= parametros.size(); i++) {
+            for (int i = 0; i < parametros.size(); i++) {
                 argumentos.add(System.console().readLine());
                 //i++;
             }
         }
+        System.out.println("Depurando: despues del if ");
+
         return broker.ejecutar_servicio_sinc(servicio.obtenerNombreServicio(), argumentos);
         
     }
@@ -57,14 +61,20 @@ public class Client {
                 mostrarServicios(listaServicios);
                 
                 // Seleccionar servicio
-                String seleccion = System.console().readLine();
-                if (Integer.parseInt(seleccion) == 0) {
+                String seleccionString = System.console().readLine();
+                Integer seleccion = Integer.parseInt(seleccionString);
+                if (seleccion == 0) {
                     break;
                 }
-                Servicio servicio = listaServicios.get(Integer.parseInt(seleccion) - 1);
+                seleccion--;
+                Servicio servicio = listaServicios.get(seleccion);
 
                 Object resultado = null;
+                
+                System.out.println("Depurando: antes de ejecutar - ");
+
                 resultado = ejecutarServicio(servicio, broker);
+                System.out.println("Depurando: despues de ejecutar");
                 
                 //Mostrar resultado
                 if(resultado == null){

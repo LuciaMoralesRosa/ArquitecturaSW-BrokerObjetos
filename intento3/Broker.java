@@ -1,5 +1,3 @@
-package intento3;
-
 import java.lang.reflect.Method;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -34,7 +32,7 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
     public void registrarServidor(String nombreServidor, String hostRemoto) throws RemoteException {
         // Si un servicio ya estaba registrado borramos los servicios que tenia 
         // dados de alta anteriormente
-        if (listaServidores.containsKey(nombreServidor)) {
+        if (!listaServidores.isEmpty() && listaServidores.containsKey(nombreServidor)) {
             for (Servicio s : listaServicios) {
                 if (Objects.equals(s.obtenerNombreServidor(), nombreServidor)) {
                     listaServicios.remove(s);
@@ -43,7 +41,7 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
         }
         else {
             listaServidores.put(nombreServidor, hostRemoto);
-            System.out.println("[ + ] Se ha registrado el servidor" +
+            System.out.println("[ + ] Se ha registrado el servidor " +
                                nombreServidor);
         }
     }
@@ -63,7 +61,7 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
             Servicio servicio = new Servicio(nombreServidor, nombreServicio, listaParametros, tipoRetorno);
             this.listaServicios.add(servicio);
             System.out.println("[ + ] El servidor" + nombreServidor +
-                               "ha dado de alta el servicio " + nombreServicio);
+                               " ha dado de alta el servicio " + nombreServicio);
         }
     }
 
@@ -74,7 +72,7 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
                     Objects.equals(s.obtenerNombreServidor(), nombreServidor)) {
                 listaServicios.remove(s);
                 System.out.println("[ - ] El servidor" + nombreServidor +
-                        "ha dado de baja el servicio " +
+                        " ha dado de baja el servicio " +
                         nombreServicio);
                 break;
             }
@@ -128,7 +126,7 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
             host = host + "200:32009";
 
             Broker objeto = new Broker();
-            Naming.rebind("//" + host + "/MiBroker7981", objeto);
+            Naming.rebind("//" + host + "/MiBroker", objeto);
             System.out.println("[ + ] Se ha registrado el objeto remoto");
 
         } catch (Exception ex) {
