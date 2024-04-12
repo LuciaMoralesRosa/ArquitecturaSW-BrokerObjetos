@@ -1,12 +1,23 @@
 import java.util.Vector;
 
+/**
+ * Clase que representa un servicio.
+ */
 public class Servicio {
+    
+    // Atributos
     private String nombreServidor;
     private String nombreServicio;
     private Vector listaParametros;
     private String tipoRetorno;
 
-    // Constructor
+    /**
+     * Constructor de la clase Servicio.
+     * @param nombreServidor Nombre del servidor al que pertenece el servicio.
+     * @param nombreServicio Nombre del servicio.
+     * @param listaParametros Lista de parámetros del servicio.
+     * @param tipoRetorno Tipo de retorno del servicio.
+     */
     public Servicio(String nombreServidor, String nombreServicio, Vector<Object> listaParametros, String tipoRetorno) {
         this.nombreServidor = nombreServidor;
         this.nombreServicio = nombreServicio;
@@ -14,38 +25,66 @@ public class Servicio {
         this.tipoRetorno = tipoRetorno;
     }
 
-    // Getter y Setter para nombreServidor
+    /**
+     * Método getter para obtener el nombre del servidor.
+     * @return Nombre del servidor.
+     */
     public String obtenerNombreServidor() {
         return nombreServidor;
     }
 
+    /**
+     * Método setter para establecer el nombre del servidor.
+     * @param nombreServidor Nombre del servidor.
+     */
     public void establecerNombreServidor(String nombreServidor) {
         this.nombreServidor = nombreServidor;
     }
 
-    // Getter y Setter para nombreServicio
+    /**
+     * Método getter para obtener el nombre del servicio.
+     * @return Nombre del servicio.
+     */
     public String obtenerNombreServicio() {
         return nombreServicio;
     }
 
+    /**
+     * Método setter para establecer el nombre del servicio.
+     * @param nombreServicio Nombre del servicio.
+     */
     public void establecerNombreServicio(String nombreServicio) {
         this.nombreServicio = nombreServicio;
     }
 
-    // Getter y Setter para listaParametros
+    /**
+     * Método getter para obtener la lista de parámetros del servicio.
+     * @return Lista de parámetros del servicio.
+     */
     public Vector<Object> obtenerListaParametros() {
         return listaParametros;
     }
 
+    /**
+     * Método setter para establecer la lista de parámetros del servicio.
+     * @param listaParametros Lista de parámetros del servicio.
+     */
     public void establecerListaParametros(Vector<Object> listaParametros) {
         this.listaParametros = listaParametros;
     }
 
-    // Getter y Setter para tipoRetorno
+    /**
+     * Método getter para obtener el tipo de retorno del servicio.
+     * @return Tipo de retorno del servicio.
+     */
     public String obtenerTipoRetorno() {
         return tipoRetorno;
     }
 
+    /**
+     * Método setter para establecer el tipo de retorno del servicio.
+     * @param tipoRetorno Tipo de retorno del servicio.
+     */
     public void establecerTipoRetorno(String tipoRetorno) {
         this.tipoRetorno = tipoRetorno;
     }
