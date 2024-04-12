@@ -67,6 +67,8 @@ public class Cliente {
         Vector<Object> elementosParametro = new Vector<Object>();
 
         System.out.println("¿Que servicio desea ejecutar?: ");
+        String servicio = "obtenerNumeroDeAlumnos"; //Borrar
+/*
         String servicio = scanner.nextLine();
 
         System.out.println("¿Desea usar el ultimo resultado como parametro? [S]");
@@ -82,7 +84,7 @@ public class Cliente {
         } else {
             elementosParametro = obtenerParametros(scanner);
         }
-
+*/
         // Ejecutar el servicio
         Object resultado = broker.ejecutar_servicio_sinc(servicio, elementosParametro);
         ultimoValor = resultado;
@@ -112,7 +114,8 @@ public class Cliente {
             // Obtener IP del broker
             String hostBroker = "155.210.154.";
             System.out.println("Complete la IP del broker 155.210.154.XXX:XXXXX: ");
-            hostBroker = hostBroker + scanner.nextLine();
+            //hostBroker = hostBroker + scanner.nextLine();
+            hostBroker = hostBroker + "200:32009"; //Borrar
 
             // Busqueda del broker en RMI registry
             BrokerCli broker = (BrokerCli) Naming.lookup("//" + hostBroker + "/MiBroker");

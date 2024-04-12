@@ -48,12 +48,13 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
     public Object ejecutar_servicio_sinc(String nombreServicio,
                                          Vector parametrosServicio)
                                          throws RemoteException {
+        System.out.println("Depuracion: 0");
         String hostServidor = null;
         String nombreServidor = null;
         Servicio servicio;
         for (Servicio s : listaServicios) {
             if (s.obtenerNombreServicio().equals(nombreServicio)) {
-                System.out.println("1");
+                System.out.println("Depuracion: 1");
                 nombreServidor = s.obtenerNombreServidor();
                 servicio = s;
                 for (Servidor p : listaServidores) {
@@ -61,39 +62,44 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
                                     "; Obtenido: " + p.getNombreServidor());
                         
                     if (p.getNombreServidor().equals(nombreServidor)) {
-                        System.out.println("1'5");
+                        System.out.println("Depuracion: 1'5");
                         hostServidor = p.getHostServidor();
                     }
                     break;
                 }
-                System.out.println("2");
+                System.out.println("Depuracion: 2");
                 break;
             }
         }
 
         //if (hostServidor != null) {
             try {
-                System.out.println("3");
-                // Carga dinamica de la clase del servidor usando refection
-                Class<?> servidorClase = Class.forName(nombreServidor);
-                System.out.println("3.5");
-                Remote servidor = (Remote) servidorClase.getDeclaredConstructor().newInstance();
+                System.out.println("Depuracion: 3; Nombre servidor y host " + nombreServidor + ", "+ hostServidor);
+                Object servidorClase = (Object) Naming.lookup(nombreServidor);
+                
+                System.out.println("Depuracion: 3.5");
+                Method metodoRemoto = servidorClase.getClass().getMethod(nombreServicio,
+                        Vector.class);
+                System.out.println("Depuracion: 4");
 
-                //Metodo 1
+                // Carga dinamica de la clase del servidor usando refection
+                // Class<?> servidorClase = Class.forName(nombreServidor);
+                //Remote servidor = (Remote) servidorClase.getDeclaredConstructor().newInstance();
+                //Method metodoRemoto = servidorClase.getMethod(nombreServicio, Vector.class);
+
+                //Metodo alternativo
                 //Method metodoRemoto1 = servidor.getClass().getMethod(nombreServidor, Vector.class);
                 //Object ret = metodoRemoto1.invoke(servidor, parametrosServicio);
 
-                System.out.println("4");
 
                 //Metodo2
                 // Obtener el metodo remoto mediante reflection
-                Method metodoRemoto = servidorClase.getMethod(nombreServicio,
-                                            Vector.class);
-                System.out.println("5");
+                
+                System.out.println("Depuracion: 5");
 
                 // Invocar el método remoto en el servidor seleccionado
-                Object resultado = metodoRemoto.invoke(servidor, parametrosServicio);
-                System.out.println("6");
+                Object resultado = metodoRemoto.invoke(servidorClase.getClass(), parametrosServicio);
+                System.out.println("Depuracion: 6");
 
                 return resultado;
 
@@ -138,7 +144,8 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
     @Override
     public void registrarServidor(String nombreServidor, String host)
                                   throws RemoteException {
-        Servidor servidor = new Servidor(nombreServidor, host);
+        System.out.println("nombre del servidor a registrar y host" + nombreServidor + ", " + host);
+        Servidor servidor = new Servidor(nombreServidor, nombreServidor);
         if (!listaServidores.isEmpty()) {
             if (!listaServidores.contains(servidor)) {
                 listaServidores.add(servidor);
@@ -218,8 +225,8 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
         try {
             String host = "155.210.154.";
             System.out.print("Introduzca el final de su ip y el puerto de RMI: ");
-            host = host + scanner.nextLine();
-
+            //host = host + scanner.nextLine();
+            host = host + "200:32009";
 
             Broker objeto = new Broker();
             Naming.rebind("//" + host + "/MiBroker", objeto);

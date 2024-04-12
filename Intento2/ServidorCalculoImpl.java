@@ -56,7 +56,10 @@ public class ServidorCalculoImpl extends UnicastRemoteObject implements Servidor
      */
     private static void registrar(BrokerServ broker,
             String host) throws RemoteException {
-        broker.registrarServidor("//" + host + "/MiServidorAlumnos", host);
+        // Opcion 1:
+        // broker.registrarServidor("ServidorCalculoImpl", host);
+        // Opcion 2:
+        broker.registrarServidor("//" + host + "/MiServidorCalculo", host);
         System.out.println("El servidor se ha registrado correctamente\n");
     }
 

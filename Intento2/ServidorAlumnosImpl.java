@@ -26,6 +26,7 @@ public class ServidorAlumnosImpl extends UnicastRemoteObject implements Servidor
     private int numeroAlumnos;
     private int notasAlumnos[];
     private Random random = new Random();
+    private static String miNombre;
     
     // Metodos privados empleados por el constructor
 
@@ -78,7 +79,11 @@ public class ServidorAlumnosImpl extends UnicastRemoteObject implements Servidor
      */
     private static void registrar(BrokerServ broker,
             String host) throws RemoteException {
-        broker.registrarServidor("//" + host + "/MiServidorAlumnos", host);
+
+        //Opcion 1:
+        //broker.registrarServidor("ServidorAlumnosImpl", host);
+        //Opcion 2:
+        broker.registrarServidor(miNombre, host);
         System.out.println("El servidor se ha registrado correctamente\n");
     }
 
@@ -102,19 +107,22 @@ public class ServidorAlumnosImpl extends UnicastRemoteObject implements Servidor
 
         switch (respuesta) {
             case "1":
-                broker.altaServicio(nombreServidor, "obtenerNumeroDeAlumnos",
+                broker.altaServicio(
+                        miNombre, "obtenerNumeroDeAlumnos",
                         parametros, "int");
                 System.out.println("Se ha dado de alta el servicio\n");
                 break;
             case "2":
                 parametros.add(int.class);
-                broker.altaServicio(nombreServidor, "establecerNumeroDeAlumnos",
+                broker.altaServicio(
+                        miNombre, "establecerNumeroDeAlumnos",
                         parametros, null);
                 System.out.println("Se ha dado de alta el servicio\n");
                 break;
 
             case "3":
-                broker.altaServicio(nombreServidor, "obtenerNotas",
+                broker.altaServicio(
+                        miNombre, "obtenerNotas",
                         parametros, "int[]");
                 System.out.println("Se ha dado de alta el servicio\n");
                 break;
@@ -143,15 +151,15 @@ public class ServidorAlumnosImpl extends UnicastRemoteObject implements Servidor
 
         switch (respuesta) {
             case "1":
-                broker.bajaServicio(nombreServidor, "obtenerNumeroDeAlumnos");
+                broker.bajaServicio(miNombre, "obtenerNumeroDeAlumnos");
                 System.out.println("Se ha dado de baja el servicio\n");
                 break;
             case "2":
-                broker.bajaServicio(nombreServidor, "establecerNumeroDeAlumnos");
+                broker.bajaServicio(miNombre, "establecerNumeroDeAlumnos");
                 System.out.println("Se ha dado de baja el servicio\n");
                 break;
             case "3":
-                broker.bajaServicio(nombreServidor, "obtenerNotas");
+                broker.bajaServicio(miNombre, "obtenerNotas");
                 System.out.println("Se ha dado de baja el servicio\n");
                 break;
             default:
@@ -218,17 +226,20 @@ public class ServidorAlumnosImpl extends UnicastRemoteObject implements Servidor
             // Obtener IP del servidor
             String host = "155.210.154.";
             System.out.println("Complete su IP 155.210.154.XXX:XXXXX: ");
-            host = host + scanner.nextLine();
+            //host = host + scanner.nextLine();
+            host = host + "201:32008";
+            miNombre = "//" + host + "/MiServidorAlumnos";
 
             // Obtener IP del broker
             String hostBroker = "155.210.154.";
             System.out.println("Complete la IP del broker 155.210.154.XXX:XXXXX: ");
-            hostBroker = hostBroker + scanner.nextLine();
+            //hostBroker = hostBroker + scanner.nextLine();
+            hostBroker = hostBroker + "200:32009";
 
             // Crear una instancia del serivdor
             ServidorAlumnosImpl obj = new ServidorAlumnosImpl();
             // Registro de la instancia en RMI registry
-            Naming.rebind("//" + host + "/MiServidorAlumnos", obj);
+            Naming.rebind(miNombre, obj);
             // Busqueda del broker en RMI registry
             BrokerServ broker = (BrokerServ) Naming.lookup("//" + hostBroker + "/MiBroker");
 
