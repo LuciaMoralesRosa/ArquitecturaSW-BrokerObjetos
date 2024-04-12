@@ -106,6 +106,12 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
     }
 
     // Metodos para los servidores
+
+    /*
+     * Crea un servidor con los campos dados y lo añade a la lista de servidores
+     * @param nombreServidor Nombre del servidor que se quiere registrar
+     * @param host Dirección host del servidor que se quiere registrar
+     */
     @Override
     public void registrarServidor(String nombreServidor, String host) throws RemoteException {
         Servidor servidor = new Servidor(nombreServidor, host);
@@ -117,10 +123,17 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
         System.out.println("Se ha registrado un servidor");
     }
 
+
+    /**
+     * Crea un servicio con los campos dados, verifica que no exista ya en la lista de servicios y lo añade a la lista
+     * @param nombreServidor Nombre del servidor al que pertenece el servicio que se quiere dar de alta
+     * @param nombreServicio Nombre del servicio que se quiere dar de alta
+     * @param listaParametros Lista de los parámetros que requiere el servicio
+     * @param tipoRetorno Tipo del dato que retorna el método.
     @Override
-    public void altaServicio(String nombreServidor, String nombreServicio, Vector<Object> listaParametros, String tipo_retorno)
+    public void altaServicio(String nombreServidor, String nombreServicio, Vector<Object> listaParametros, String tipoRetorno)
             throws RemoteException {
-        Servicio nuevoServicio = new Servicio(nombreServidor, nombreServicio, listaParametros, tipo_retorno);
+        Servicio nuevoServicio = new Servicio(nombreServidor, nombreServicio, listaParametros, tipoRetorno);
         if (!listaServicios.isEmpty()) {
             if (!listaServicios.contains(nuevoServicio)) {
                 listaServicios.add(nuevoServicio);
