@@ -1,3 +1,11 @@
+/*******************************************************************************
+ * Autores: Lizer Bernad Ferrando, 779035
+ * Lucia Morales Rosa, 816906
+ * 
+ * Fichero: Servidor.java
+ * Comentarios: Es el fichero correspondiente a la representacion de un servidor.
+ ******************************************************************************/
+
 /**
  * Clase que representa un servidor.
  */

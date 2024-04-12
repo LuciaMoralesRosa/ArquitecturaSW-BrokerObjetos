@@ -5,6 +5,16 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Scanner;
 import java.util.Vector;
 
+/*******************************************************************************
+ * Autores: Lizer Bernad Ferrando, 779035
+ * Lucia Morales Rosa, 816906
+ * 
+ * Fichero: ServidorCalculoImpl.java
+ * Comentarios: Es el fichero correspondiente a implementacion de los servicios 
+ * ofrecidos por el servidor de calculo.
+ ******************************************************************************/
+
+
 /**
  * Implementación de un servidor de calculo que ofrece servicios remotos
  * mediante RMI

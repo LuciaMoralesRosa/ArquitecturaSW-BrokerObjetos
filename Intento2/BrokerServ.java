@@ -2,6 +2,16 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Vector;
 
+/*******************************************************************************
+ * Autores: Lizer Bernad Ferrando, 779035
+ * Lucia Morales Rosa, 816906
+ * 
+ * Fichero: BrokerServ.java
+ * Comentarios: Es el fichero correspondiente a la interfaz para servidores del
+ * broker.
+ ******************************************************************************/
+
+
 /**
  * Definición de la interfaz remota BrokerServ
  */

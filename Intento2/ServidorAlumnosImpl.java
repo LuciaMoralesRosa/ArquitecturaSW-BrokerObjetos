@@ -6,6 +6,16 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Vector;
 
+/*******************************************************************************
+ * Autores: Lizer Bernad Ferrando, 779035
+ * Lucia Morales Rosa, 816906
+ * 
+ * Fichero: ServidorAlumnosImpl.java
+ * Comentarios: Es el fichero correspondiente a implementacion de los servicios 
+ * ofrecidos por el servidor de alumnos.
+ ******************************************************************************/
+
+
 /**
  * Implementación de un servidor de alumnos que ofrece servicios remotos
  * mediante RMI

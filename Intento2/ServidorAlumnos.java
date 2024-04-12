@@ -1,6 +1,17 @@
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+/*******************************************************************************
+ * Autores: Lizer Bernad Ferrando, 779035
+ * Lucia Morales Rosa, 816906
+ * 
+ * Fichero: ServidorAlumnos.java
+ * Comentarios: Es el fichero correspondiente a interfaz de los servicios 
+ * ofrecidos por el servidor de alumnos.
+ ******************************************************************************/
+
+
+
 /**
  * Interfaz remota para el servicio de gestión de alumnos.
  * Esta interfaz define los métodos remotos para obtener y establecer

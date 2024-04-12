@@ -2,6 +2,16 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.RemoteServer;
 
+/*******************************************************************************
+ * Autores: Lizer Bernad Ferrando, 779035
+ * Lucia Morales Rosa, 816906
+ * 
+ * Fichero: ServidorCalculo.java
+ * Comentarios: Es el fichero correspondiente a interfaz de los servicios 
+ * ofrecidos por el servidor de calculo.
+ ******************************************************************************/
+
+
 /**
  * Interfaz remota para el servicio de gestión de operaciones.
  * Esta interfaz define los métodos remotos para realizar operaciones

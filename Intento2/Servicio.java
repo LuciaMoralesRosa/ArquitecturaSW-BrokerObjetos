@@ -1,5 +1,14 @@
 import java.util.Vector;
 
+/*******************************************************************************
+ * Autores: Lizer Bernad Ferrando, 779035
+ * Lucia Morales Rosa, 816906
+ * 
+ * Fichero: Servicio.java
+ * Comentarios: Es el fichero correspondiente a la representacion de un servicio.
+ ******************************************************************************/
+
+
 /**
  * Clase que representa un servicio.
  */

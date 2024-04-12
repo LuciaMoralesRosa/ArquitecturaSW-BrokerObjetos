@@ -8,6 +8,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Vector;
 
+/*******************************************************************************
+ * Autores: Lizer Bernad Ferrando, 779035
+ * Lucia Morales Rosa, 816906
+ * 
+ * Fichero: Broker.java
+ * Comentarios: Es el fichero correspondiente al Broker.
+ ******************************************************************************/
+
+
 /**
  * Clase que representa un Broker.
  */
