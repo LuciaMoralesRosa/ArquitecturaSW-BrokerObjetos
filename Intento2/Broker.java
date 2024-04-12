@@ -143,6 +143,11 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
         System.out.println("Se ha dado de alta un servicio");
     }
 
+
+    /* 
+     * Verifica que existe un servicio con los valores especificados y lo elimina de la lista de servicios
+     * @param nombreServidor Nombre del servidor donde se encuentra el servicio que se quiere dar de baja
+     * @param nombreServicio Nombre del servicio que se quiere dar de baja
     @Override
     public void bajaServicio(String nombreServidor, String nombreServicio) throws RemoteException {
         int index = -1;
@@ -158,6 +163,7 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
         }
         System.out.println("Se ha dado de baja un servicio");
     }
+
 
     public static void main(String args[]) {
         Scanner scanner = new Scanner(System.in);
