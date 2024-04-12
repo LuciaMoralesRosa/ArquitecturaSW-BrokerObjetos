@@ -24,7 +24,7 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
     // Metodos para el cliente
 
     /* 
-     * 
+     * Ejecuta un metodo remoto especificado por un cliente en un servidor
      * @param nombreServicio Indica el nombre del servicio que se quiere ejecutar
      * @param parametrosServicio Indica los parametros que empleará el servicio a ejecutar
      * @return El objeto devuelto por el servicio ejecutado
