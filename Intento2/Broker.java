@@ -14,11 +14,21 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
     private ArrayList<Servidor> listaServidores = new ArrayList<Servidor>();
     private ArrayList<Servicio> listaServicios = new ArrayList<Servicio>();
 
+    /**
+     * Constructor para el Broker 
+     */
     protected Broker() throws RemoteException {
         super();
     }
 
     // Metodos para el cliente
+
+    /* 
+     * 
+     * @param nombreServicio Indica el nombre del servicio que se quiere ejecutar
+     * @param parametrosServicio Indica los parametros que empleará el servicio a ejecutar
+     * @return El objeto devuelto por el servicio ejecutado
+     */
     @Override
     public Object ejecutar_servicio_sinc(String nombreServicio, Vector parametrosServicio) throws RemoteException {
         String hostServidor = null;
