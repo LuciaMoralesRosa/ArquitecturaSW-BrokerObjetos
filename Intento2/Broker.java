@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Vector;
 
+/**
+ * Clase que representa un Broker.
+ */
 public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ {
     
     // Atributos
@@ -24,13 +27,18 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
     // Metodos para el cliente
 
     /* 
-     * Ejecuta un metodo remoto especificado en el servidor correspondiente a través de RMI
+     * Ejecuta un metodo remoto especificado en el servidor correspondiente
+     * a través de RMI
+     * 
      * @param nombreServicio Indica el nombre del servicio que se quiere ejecutar
-     * @param parametrosServicio Indica los parametros que empleará el servicio a ejecutar
+     * @param parametrosServicio Indica los parametros que empleará el servicio
+     *          a ejecutar
      * @return El objeto devuelto por el servicio ejecutado
      */
     @Override
-    public Object ejecutar_servicio_sinc(String nombreServicio, Vector parametrosServicio) throws RemoteException {
+    public Object ejecutar_servicio_sinc(String nombreServicio,
+                                         Vector parametrosServicio)
+                                         throws RemoteException {
         String hostServidor = null;
         String nombreServidor = null;
         Servicio servicio;
@@ -40,7 +48,8 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
                 nombreServidor = s.obtenerNombreServidor();
                 servicio = s;
                 for (Servidor p : listaServidores) {
-                    System.out.println( "Buscando: " + nombreServidor + "; Obtenido: " + p.getNombreServidor());
+                    System.out.println("Buscando: " + nombreServidor +
+                                    "; Obtenido: " + p.getNombreServidor());
                         
                     if (p.getNombreServidor().equals(nombreServidor)) {
                         System.out.println("1'5");
@@ -69,7 +78,8 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
 
                 //Metodo2
                 // Obtener el metodo remoto mediante reflection
-                Method metodoRemoto = servidorClase.getMethod(nombreServicio, Vector.class);
+                Method metodoRemoto = servidorClase.getMethod(nombreServicio,
+                                            Vector.class);
                 System.out.println("5");
 
                 // Invocar el método remoto en el servidor seleccionado
@@ -87,15 +97,19 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
 
     @Override
     /**
-     * Verifica si hay servicios registrados y en caso de haberlos, devuelve un String con su nombre y parametros necesarios
-     * @return Si hay servicios devuelve una cadena con los servicios registrados y sus respectivos parametros. Si no hay, devuelve un mensaje avisando de que no hay servicios registrados
+     * Verifica si hay servicios registrados y en caso de haberlos, devuelve un
+     * String con su nombre y parametros necesarios
+     * 
+     * @return Si hay servicios devuelve una cadena con los servicios registrados
+     *          y sus respectivos parametros. Si no hay, devuelve un mensaje
+     *          avisando de que no hay servicios registrados
      */
     public String mostrarServicios() throws RemoteException {
         String respuesta = null;
         if (!listaServicios.isEmpty()) {
             for (Servicio s : listaServicios) {
-                respuesta = ("Metodo: " + s.obtenerNombreServicio() + "; Parametros: " + s.obtenerListaParametros()
-                        + ".\n");
+                respuesta = ("Metodo: " + s.obtenerNombreServicio() +
+                        "; Parametros: " + s.obtenerListaParametros() + ".\n");
             }
         }
         else {
@@ -113,7 +127,8 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
      * @param host Dirección host del servidor que se quiere registrar
      */
     @Override
-    public void registrarServidor(String nombreServidor, String host) throws RemoteException {
+    public void registrarServidor(String nombreServidor, String host)
+                                  throws RemoteException {
         Servidor servidor = new Servidor(nombreServidor, host);
         if (!listaServidores.isEmpty()) {
             if (!listaServidores.contains(servidor)) {
@@ -125,15 +140,22 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
 
 
     /**
-     * Crea un servicio con los campos dados, verifica que no exista ya en la lista de servicios y lo añade a la lista
-     * @param nombreServidor Nombre del servidor al que pertenece el servicio que se quiere dar de alta
+     * Crea un servicio con los campos dados, verifica que no exista ya en la
+     * lista de servicios y lo añade a la lista
+     * 
+     * @param nombreServidor Nombre del servidor al que pertenece el servicio
+     *          que se quiere dar de alta
      * @param nombreServicio Nombre del servicio que se quiere dar de alta
      * @param listaParametros Lista de los parámetros que requiere el servicio
      * @param tipoRetorno Tipo del dato que retorna el método.
+     * 
+     */
     @Override
-    public void altaServicio(String nombreServidor, String nombreServicio, Vector<Object> listaParametros, String tipoRetorno)
-            throws RemoteException {
-        Servicio nuevoServicio = new Servicio(nombreServidor, nombreServicio, listaParametros, tipoRetorno);
+    public void altaServicio(String nombreServidor, String nombreServicio,
+                             Vector<Object> listaParametros, String tipoRetorno)
+                             throws RemoteException {
+        Servicio nuevoServicio = new Servicio(nombreServidor, nombreServicio,
+                                              listaParametros, tipoRetorno);
         if (!listaServicios.isEmpty()) {
             if (!listaServicios.contains(nuevoServicio)) {
                 listaServicios.add(nuevoServicio);
@@ -142,17 +164,22 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
         listaServicios.add(nuevoServicio);
         System.out.println("Se ha dado de alta un servicio");
     }
-
-
+    
+    
     /* 
-     * Verifica que existe un servicio con los valores especificados y lo elimina de la lista de servicios
-     * @param nombreServidor Nombre del servidor donde se encuentra el servicio que se quiere dar de baja
+     * Verifica que existe un servicio con los valores especificados y lo
+     * elimina de la lista de servicios
+     * @param nombreServidor Nombre del servidor donde se encuentra el servicio
+     *          que se quiere dar de baja
      * @param nombreServicio Nombre del servicio que se quiere dar de baja
+     */
     @Override
-    public void bajaServicio(String nombreServidor, String nombreServicio) throws RemoteException {
+    public void bajaServicio(String nombreServidor, String nombreServicio)
+                             throws RemoteException {
         int index = -1;
         for (Servicio s : listaServicios) {
-            if (s.obtenerNombreServidor().equals(nombreServicio) && s.obtenerNombreServidor().equals(nombreServidor)) {
+            if (s.obtenerNombreServidor().equals(nombreServicio) &&
+                s.obtenerNombreServidor().equals(nombreServidor)) {
                 index = listaServicios.indexOf(s);
                 break;
             }
@@ -165,6 +192,11 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
     }
 
 
+    /**
+     * Método principal que inicia y ejecuta el borker.
+     * 
+     * @param args Argumentos de la línea de comandos (no utilizados en este caso).
+     */
     public static void main(String args[]) {
         Scanner scanner = new Scanner(System.in);
         // Fijar el directorio donde se encuentra el java.policy
