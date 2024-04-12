@@ -11,7 +11,6 @@ import java.rmi.RemoteException;
  ******************************************************************************/
 
 
-
 /**
  * Interfaz remota para el servicio de gestión de alumnos.
  * Esta interfaz define los métodos remotos para obtener y establecer

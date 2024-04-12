@@ -8,7 +8,6 @@ import java.util.ArrayList;
  * Comentarios: Es el fichero correspondiente a la representacion de un servidor.
  ******************************************************************************/
 
-
 /**
  * Clase que representa un servidor.
  */
@@ -18,7 +17,6 @@ public class Servidor {
     private String nombreServidor; // Nombre del servidor en RMI
     private String hostServidor; // Dirección del servidor IP:puerto
     private ArrayList<Servicio> listaServicios = new ArrayList<Servicio>();
-
 
     /**
      * Constructor para inicializar un objeto Servidor con nombre y host
