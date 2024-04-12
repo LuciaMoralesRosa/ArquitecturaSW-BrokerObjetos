@@ -86,6 +86,10 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
     }
 
     @Override
+    /**
+     * Verifica si hay servicios registrados y en caso de haberlos, devuelve un String con su nombre y parametros necesarios
+     * @return Si hay servicios devuelve una cadena con los servicios registrados y sus respectivos parametros. Si no hay, devuelve un mensaje avisando de que no hay servicios registrados
+     */
     public String mostrarServicios() throws RemoteException {
         String respuesta = null;
         if (!listaServicios.isEmpty()) {
