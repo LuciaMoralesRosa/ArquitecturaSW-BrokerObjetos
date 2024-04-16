@@ -91,7 +91,7 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
      * 
      */
     @Override
-    public void altaServicio(String nombreServidor, String nombreServicio, Vector<Object> listaParametros,
+    public void altaServicio(String nombreServidor, String nombreServicio, List<Object> listaParametros,
             String tipoRetorno) throws RemoteException {
         Boolean yaExiste = false;
         for (Servicio s : listaServicios) {
@@ -179,9 +179,13 @@ public class Broker extends UnicastRemoteObject implements BrokerCli, BrokerServ
      *         avisando de que no hay servicios registrados
      */
     @Override
-    public List<Servicio> obtenerServicios() throws RemoteException {
+    public HashMap<String, List<Object>> obtenerServicios() throws RemoteException {
         System.out.println("[ * ] Se ha devuelto la lista de servicios");
-        return this.listaServicios;
+        HashMap<String, List<Object>> hash = new HashMap<>();
+        for (Servicio s : listaServicios) {
+            hash.put(s.obtenerNombreServicio(), s.obtenerListaParametros());
+        }
+        return hash;        
     }
 
     public static void main(String args[]) {

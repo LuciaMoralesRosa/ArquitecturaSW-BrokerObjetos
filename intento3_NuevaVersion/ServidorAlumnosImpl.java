@@ -175,8 +175,8 @@ public class ServidorAlumnosImpl extends UnicastRemoteObject implements Servidor
     @Override
     public void establecerNumeroDeAlumnos(int numero) throws RemoteException {
         numeroAlumnos = numero;
-        notasAlumnos = new int[numeroAlumnos];
-        generadorNotasAleatorias();
+        //notasAlumnos = new int[numeroAlumnos];
+        //generadorNotasAleatorias();
     }
 
     /**
